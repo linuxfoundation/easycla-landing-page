@@ -1,7 +1,8 @@
-// @ts-check
-
 // Copyright The Linux Foundation and each contributor to CommunityBridge.
 // SPDX-License-Identifier: MIT
+
+// @ts-check
+
 const AWS = require('aws-sdk');
 
 /**
