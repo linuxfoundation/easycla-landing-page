@@ -177,7 +177,6 @@
       }
     }
   },
-  "defaultProject": "landing-page",
   "cli": {
     "analytics": false
   }
