@@ -27,8 +27,6 @@ echo "Searching shell files..."
 files+=($(find . -type f \( -name '*.sh' -o -name '*.bash' -o -name '*.ksh' -o -name '*.csh' -o -name '*.tcsh' -o -name '*.fsh' \) -print | egrep -v ${exclude_pattern})) # NOTE There must be a space between the parens and its contents or it won't work.
 echo "Searching make files..."
 files+=($(find . -type f -name 'Makefile' -print | egrep -v ${exclude_pattern}))
-echo "Searching txt files..."
-files+=($(find . -type f -name '*.txt' -print | egrep -v ${exclude_pattern}))
 echo "Searching yaml|yml files..."
 files+=($(find . -type f \( -name '*.yaml' -o -name '*.yml' \) -print | egrep -v ${exclude_pattern})) # NOTE There must be a space between the parens and its contents or it won't work.
 files+=($(find . -type f -name '.gitignore' -print | egrep -v ${exclude_pattern}))
