@@ -16,7 +16,7 @@ env:
   STAGE: dev
 
 jobs:
-  build-deploy--dev:
+  build-deploy-dev:
     runs-on: ubuntu-latest
     environment: dev
     steps:
@@ -76,6 +76,6 @@ jobs:
           echo "Invalidating Cloudfront caches using command: aws --profile ${AWS_PROFILE} cloudfront create-invalidation --distribution-id ${DISTRIBUTION_ID} --paths '/*'"
 
           # SLS_DEBUG=* ./node_modules/serverless/bin/serverless.js cloudfrontInvalidate -s ${STAGE} -r ${AWS_REGION} --cloudfront=true
-          aws --profile ${AWS_PROFILE} cloudfront create-invalidation --distribution-id ${DISTRIBUTION_ID} --paths "/*"         SLS_DEBUG=* yarn sls deploy --verbose -s ${STAGE} -r ${AWS_REGION}
+          aws --profile ${AWS_PROFILE} cloudfront create-invalidation --distribution-id ${DISTRIBUTION_ID} --paths "/*"
         env:
           DISTRIBUTION_ID: E4CMSMNLN6Y7T
