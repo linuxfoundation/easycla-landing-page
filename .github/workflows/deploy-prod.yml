@@ -1,0 +1,52 @@
+---
+# Copyright The Linux Foundation and each contributor to CommunityBridge.
+# SPDX-License-Identifier: MIT
+
+name: Build and Deploy PROD
+
+on:
+  # https://docs.github.com/en/actions/learn-github-actions/workflow-syntax-for-github-actions
+  push:
+    tags:
+      - v1.*
+
+env:
+  AWS_REGION: us-east-1
+  STAGE: prod
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16'
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_KEY }}
+          aws-region: us-east-1
+          role-duration-seconds: 900
+      - name: Setup
+        run: yarn install
+      - name: Build Landing Page
+        run: |
+          yarn prebuild:${STAGE}
+          yarn build:${STAGE}
+      - name: Deploy Landing Page to DEV
+        run: |
+          echo "Deploying backend for stage ${STAGE} in region ${AWS_REGION}"
+          SLS_DEBUG=* ./node_modules/serverless/bin/serverless.js deploy -s ${STAGE} -r ${AWS_REGION} --verbose
+          
+          SLS_DEBUG=* ./node_modules/serverless/bin/serverless.js client deploy -s ${STAGE} -r ${AWS_REGION} --no-confirm --no-policy-change --no-config-change
+          
+          # Use AWS CLI to invalidate the CloudFront cache - the serverless plugin was causing some incompatibilities between node and the config
+          echo "Invalidating Cloudfront caches using command: aws --profile ${AWS_PROFILE} cloudfront create-invalidation --distribution-id ${DISTRIBUTION_ID} --paths '/*'"
+
+          # SLS_DEBUG=* ./node_modules/serverless/bin/serverless.js cloudfrontInvalidate -s ${STAGE} -r ${AWS_REGION} --cloudfront=true
+          aws --profile ${AWS_PROFILE} cloudfront create-invalidation --distribution-id ${DISTRIBUTION_ID} --paths "/*"
+        env:
+          DISTRIBUTION_ID: E21VS2BPNQGLWS

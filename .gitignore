@@ -1,3 +1,6 @@
+# Copyright The Linux Foundation and each contributor to CommunityBridge.
+# SPDX-License-Identifier: MIT
+
 # Logs
 logs
 *.log
@@ -102,3 +105,7 @@ dist
 
 # TernJS port file
 .tern-port
+
+# Ignore IDE
+.idea/
+.vscode/
