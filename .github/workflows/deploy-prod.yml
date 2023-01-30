@@ -16,7 +16,7 @@ env:
   STAGE: prod
 
 jobs:
-  build:
+  build-deploy-prod:
     runs-on: ubuntu-latest
     environment: prod
     steps:
@@ -53,11 +53,11 @@ jobs:
             echo "Skipped adding ${AWS_PROFILE} to ~/.aws/credentials - already there"
           fi
 
-          if ! grep -q AWS_PROFILE ${BASH_ENV}; then
-            echo "export AWS_PROFILE=${AWS_PROFILE}" >> ${BASH_ENV}
-            echo "Added ${AWS_PROFILE} profile to ${BASH_ENV}"
+          if ! grep -q AWS_PROFILE ${HOME}/.bashrc; then
+            echo "export AWS_PROFILE=${AWS_PROFILE}" >> ${HOME}/.bashrc
+            echo "Added ${AWS_PROFILE} profile to ${HOME}/.bashrc"
           else
-            echo "Skipped adding ${AWS_PROFILE} to ${BASH_ENV} - already there"
+            echo "Skipped adding ${AWS_PROFILE} to ${HOME}/.bashrc - already there"
           fi
       - name: Setup
         run: yarn install

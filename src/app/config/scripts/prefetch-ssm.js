@@ -10,7 +10,7 @@ const stageEnv = process.env.STAGE_ENV;
 const AWS_SSM_JSON_PATH = './src/app/config/cla-env-config.json';
 
 async function prefetchSSM() {
-  console.log(`Start to fetch SSM values at ${stageEnv}...`);
+  console.log(`Start to fetch SSM values for environment: ${stageEnv} using profile ${profile}...`);
   const result = await RetrieveSSMValues(configVarArray, stageEnv, region, profile);
   console.log('Fetching completed.');
 
