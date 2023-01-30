@@ -11,7 +11,7 @@ on:
       - main
 
 jobs:
-  yarn-scan-landing-page-pr:
+  yarn-scan-pr:
     runs-on: ubuntu-latest
     environment: dev
     steps:
