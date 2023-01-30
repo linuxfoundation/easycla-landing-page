@@ -17,6 +17,7 @@ env:
 jobs:
   build:
     runs-on: ubuntu-latest
+    environment: prod
     steps:
       - uses: actions/checkout@v3
       - name: Setup Node
@@ -36,7 +37,7 @@ jobs:
         run: |
           yarn prebuild:${STAGE}
           yarn build:${STAGE}
-      - name: Deploy Landing Page to DEV
+      - name: Deploy Landing Page to PROD
         run: |
           echo "Deploying backend for stage ${STAGE} in region ${AWS_REGION}"
           SLS_DEBUG=* ./node_modules/serverless/bin/serverless.js deploy -s ${STAGE} -r ${AWS_REGION} --verbose
