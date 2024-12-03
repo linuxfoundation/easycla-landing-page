@@ -1405,6 +1405,11 @@
   resolved "https://registry.yarnpkg.com/@leichtgewicht/ip-codec/-/ip-codec-2.0.4.tgz#b2ac626d6cb9c8718ab459166d4bb405b8ffa78b"
   integrity sha512-Hcv+nVC0kZnQ3tD9GVu5xSMR4VVYOteQIr/hwFPVEvPdlXqgGEuRjiheChHgdM+JyqdgNcmzZOX/tnl0JOiI7A==
 
+"@linuxfoundation/lfx-ui-core@^0.0.12":
+  version "0.0.12"
+  resolved "https://registry.yarnpkg.com/@linuxfoundation/lfx-ui-core/-/lfx-ui-core-0.0.12.tgz#69b89fb82bc3ddc2343f140a87c5c43bae230801"
+  integrity sha512-yOGk9URri2/Ojp611cCloORO0PuMdjJD8Og6emhLV9+dMvArweTRzLTTOsTAJp7Y1ZtzZA81xMG24nwu/0fyag==
+
 "@ng-bootstrap/ng-bootstrap@^14.0.1":
   version "14.0.1"
   resolved "https://registry.yarnpkg.com/@ng-bootstrap/ng-bootstrap/-/ng-bootstrap-14.0.1.tgz#09f93058d3c4a2f4e751c8b546e01f6d2524bd05"
