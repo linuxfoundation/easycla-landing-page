@@ -5,13 +5,12 @@ const fs = require('fs');
 const RetrieveSSMValues = require('./read-ssm');
 const configVarArray = ['auth0-clientId', 'auth0-domain', 'proj-console-link', 'lfx-header', 'lfx-footer', 'corp-console-link', 'corporate-v2-base', 'admin-v2-base'];
 const region = 'us-east-1';
-const profile = process.env.AWS_PROFILE;
 const stageEnv = process.env.STAGE_ENV;
 const AWS_SSM_JSON_PATH = './src/app/config/cla-env-config.json';
 
 async function prefetchSSM() {
-  console.log(`Start to fetch SSM values for environment: ${stageEnv} using profile ${profile}...`);
-  const result = await RetrieveSSMValues(configVarArray, stageEnv, region, profile);
+  console.log(`Start to fetch SSM values for environment: ${stageEnv}`);
+  const result = await RetrieveSSMValues(configVarArray, stageEnv, region);
   console.log('Fetching completed.');
 
   //test for local

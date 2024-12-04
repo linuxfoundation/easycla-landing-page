@@ -12,59 +12,39 @@ on:
 
 env:
   AWS_REGION: us-east-1
-  AWS_PROFILE: lf-cla
   STAGE: dev
+
+permissions:
+  contents: read
+  id-token: write
 
 jobs:
   build-deploy-dev:
     runs-on: ubuntu-latest
     environment: dev
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
+
       - name: Setup Node
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v4
         with:
-          node-version: '16'
+          node-version: '18'
+
       - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v1
+        uses: aws-actions/configure-aws-credentials@v4
         with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_KEY }}
+          audience: sts.amazonaws.com
+          role-to-assume: arn:aws:iam::395594542180:role/github-actions-deploy
           aws-region: us-east-1
-          role-duration-seconds: 900
-      - name: Setup AWS Profile
-        run: |
-          echo "Installing Profile '${AWS_PROFILE}'..."
-          mkdir -p ~/.aws
 
-          touch ~/.aws/config
-          if ! grep -q AWS_PROFILE ~/.aws/config; then
-            printf "[profile ${AWS_PROFILE}]\nregion=${AWS_REGION}\noutput=json" > ~/.aws/config
-            echo "Added ${AWS_PROFILE} profile to ~/.aws/config"
-          else
-            echo "Skipped adding ${AWS_PROFILE} to ~/.aws/config - already there"
-          fi
-
-          touch ~/.aws/credentials
-          if ! grep -q AWS_PROFILE ~/.aws/credentials; then
-            printf "[${AWS_PROFILE}]\naws_access_key_id=${{ secrets.AWS_ACCESS_KEY }}\naws_secret_access_key=${{ secrets.AWS_SECRET_KEY }}" > ~/.aws/credentials
-            echo "Added ${AWS_PROFILE} profile to ~/.aws/credentials"
-          else
-            echo "Skipped adding ${AWS_PROFILE} to ~/.aws/credentials - already there"
-          fi
-
-          if ! grep -q AWS_PROFILE ${HOME}/.bashrc; then
-            echo "export AWS_PROFILE=${AWS_PROFILE}" >> ${HOME}/.bashrc
-            echo "Added ${AWS_PROFILE} profile to ${HOME}/.bashrc"
-          else
-            echo "Skipped adding ${AWS_PROFILE} to ${HOME}/.bashrc - already there"
-          fi
       - name: Setup
         run: yarn install
+
       - name: Build Landing Page
         run: |
           yarn prebuild:${STAGE}
           yarn build:${STAGE}
+          
       - name: Deploy Landing Page to DEV
         run: |
           echo "Deploying backend for stage ${STAGE} in region ${AWS_REGION}"
@@ -73,9 +53,9 @@ jobs:
           SLS_DEBUG=* ./node_modules/serverless/bin/serverless.js client deploy -s ${STAGE} -r ${AWS_REGION} --no-confirm --no-policy-change --no-config-change
     
           # Use AWS CLI to invalidate the CloudFront cache - the serverless plugin was causing some incompatibilities between node and the config
-          echo "Invalidating Cloudfront caches using command: aws --profile ${AWS_PROFILE} cloudfront create-invalidation --distribution-id ${DISTRIBUTION_ID} --paths '/*'"
+          echo "Invalidating Cloudfront caches using command: aws cloudfront create-invalidation --distribution-id ${DISTRIBUTION_ID} --paths '/*'"
 
           # SLS_DEBUG=* ./node_modules/serverless/bin/serverless.js cloudfrontInvalidate -s ${STAGE} -r ${AWS_REGION} --cloudfront=true
-          aws --profile ${AWS_PROFILE} cloudfront create-invalidation --distribution-id ${DISTRIBUTION_ID} --paths "/*"
+          aws cloudfront create-invalidation --distribution-id ${DISTRIBUTION_ID} --paths "/*"
         env:
           DISTRIBUTION_ID: E4CMSMNLN6Y7T
