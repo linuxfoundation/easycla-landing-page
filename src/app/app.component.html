@@ -9,12 +9,10 @@ docslink="https://docs.linuxfoundation.org/lfx/easycla/v2-current"
 faqlink="https://docs.linuxfoundation.org/lfx/easycla/v2-current/getting-started/easycla-faqs">
 </lfx-header-v2>
 
-<div class="container ">
-  <div [ngClass]="{'expanded':hasExpanded}" class="landing-page-container row align-items-center">
+<div class="container" style="margin-bottom: 20px;">
+  <div class="landing-page-container row">
     <router-outlet></router-outlet>
   </div>
-</div>
+  <lfx-footer></lfx-footer>
 
-<!-- Footer view --><div style="position: fixed; bottom: 20px; width: 100%;">
-<lfx-footer></lfx-footer>
 </div>

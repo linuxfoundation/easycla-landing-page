@@ -4,13 +4,7 @@
  */
 
 .landing-page-container {
-    transition: margin 0.3s;
-    margin-top: 40px;
-    padding: 25px 0;
-    min-height: calc(100vh - 182px);
-    &.expanded {
-        margin-top: 105px;
-        min-height: calc(100vh - 247px);
-    }
+    min-height: calc(100vh - 164px);
+    margin-top: 60px;
 }
 
