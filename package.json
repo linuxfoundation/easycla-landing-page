@@ -4,7 +4,7 @@
   "license": "MIT",
   "author": "The Linux Foundation",
   "engines": {
-    "node": ">=16"
+    "node": ">=18"
   },
   "scripts": {
     "ng": "./node_modules/@angular/cli/bin/ng",
