@@ -1587,10 +1587,10 @@
   resolved "https://registry.npmjs.org/@leichtgewicht/ip-codec/-/ip-codec-2.0.4.tgz"
   integrity sha512-Hcv+nVC0kZnQ3tD9GVu5xSMR4VVYOteQIr/hwFPVEvPdlXqgGEuRjiheChHgdM+JyqdgNcmzZOX/tnl0JOiI7A==
 
-"@linuxfoundation/lfx-ui-core@^0.0.18":
-  version "0.0.18"
-  resolved "https://registry.yarnpkg.com/@linuxfoundation/lfx-ui-core/-/lfx-ui-core-0.0.18.tgz#80956c6ef35769f9f221cd3a8deab7c3d58569f9"
-  integrity sha512-XizKlRk9DfZuI0RlOwqbo/i9qswTf8/PGmkHtnNQdtYJ5eo4eBdqpt+LwFzyHPO6f8qXJmhH9NYucCxXjsUJbw==
+"@linuxfoundation/lfx-ui-core@^0.0.19":
+  version "0.0.19"
+  resolved "https://registry.yarnpkg.com/@linuxfoundation/lfx-ui-core/-/lfx-ui-core-0.0.19.tgz#7ceee1cd6e13ea61ff0b96360225d157c8795de7"
+  integrity sha512-dcD81lhVj0epDXLRXiEY9oLnDoWunFDnj/1Q3jD0zNiSGAvXTHZpAnvzFHG2rm/01iTYjfv2yG6mFsgxQWD4xw==
 
 "@ng-bootstrap/ng-bootstrap@^14.0.1":
   version "14.0.1"
