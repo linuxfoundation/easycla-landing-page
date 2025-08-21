@@ -72,7 +72,7 @@
     "@angular/language-service": "^15.1.2",
     "@commitlint/cli": "^19.8.0",
     "@commitlint/config-conventional": "^19.8.0",
-    "@types/jasmine": "~3.6.0",
+    "@types/jasmine": "~5.1.9",
     "@types/jasminewd2": "~2.0.3",
     "@types/node": "^12.11.1",
     "codelyzer": "^6.0.2",
