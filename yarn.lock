@@ -189,10 +189,10 @@
   dependencies:
     tslib "^2.3.0"
 
-"@angular/core@15.1.2", "@angular/core@9.0.0", "@angular/core@^15.1.2":
-  version "15.1.2"
-  resolved "https://registry.npmjs.org/@angular/core/-/core-15.1.2.tgz"
-  integrity sha512-K9pz6Bq6RuY/OWhKLZT1JQvk4orvU9wozgXY8cZaOGmNCQQ7sJv5zGkO5csO6o1ON1v/AHowrP/FAF1i8tml5g==
+"@angular/core@20.2.1", "@angular/core@9.0.0", "@angular/core@^20.2.1":
+  version "20.2.1"
+  resolved "https://registry.yarnpkg.com/@angular/core/-/core-20.2.1.tgz#d873e2a0534e41d66a36f83e62e9e1353a3dbdc2"
+  integrity sha512-/hl3AkmdQ62P9ttmfULEDg9GIz7BkzhGv9bSH2ssiU3Y4ax6eM8uQXEbMxBA8OUKOvg1Q4POcNHIiJQgO5t28Q==
   dependencies:
     tslib "^2.3.0"
 
