@@ -1,0 +1,72 @@
+---
+description: This rule provides a comprehensive set of instructions tailored for Angular 15 development. It encourages the use of existing patterns in the codebase and provides best practices for development.
+globs: ["**/*.{ts,html,scss,css}"]
+alwaysApply: true
+---
+
+# Angular 15 EasyCLA Landing Page
+
+## Project Context
+This is an Angular 15 landing page application for EasyCLA with Auth0 integration, multi-environment deployment, and LFX platform integration.
+
+## Technology Stack
+- Angular 15.x with TypeScript 4.9
+- Bootstrap 5.2.3 for styling
+- SCSS for component styles
+- Auth0 SPA SDK for authentication
+- RxJS 6.6.7 for reactive programming
+- Serverless Framework for AWS deployment
+
+## Code Style & Standards
+
+### Component Patterns
+- Use `@Input()` for component configuration (follow ClaConsoleSectionComponent pattern)
+- Implement `OnInit` interface when using `ngOnInit`
+- Keep components focused and single-purpose
+- Use data-driven templates with configuration objects
+- Prefer template-driven forms for simple forms, reactive forms for complex ones
+
+### Service Patterns
+- Use `providedIn: 'root'` for singleton services
+- Implement proper RxJS patterns with observables
+- Use BehaviorSubject for state management (follow AuthService pattern)
+- Handle async operations with proper error handling
+- Use the existing StorageService for localStorage operations
+
+### Styling Guidelines
+- Use SCSS for all styling
+- Follow Bootstrap utility classes where possible
+- Keep component styles scoped and minimal
+- Use the existing global icon pattern for new icons
+- Maintain the existing font loading pattern
+
+### File Organization
+- Follow the existing folder structure:
+  - `/components/` for reusable UI components
+  - `/core/services/` for core application services
+  - `/config/` for configuration files
+  - `/service/` for feature-specific services
+- Use kebab-case for file names
+- Include proper copyright headers in all files
+
+## Accessibility
+- Follow Bootstrap accessibility patterns
+- Use semantic HTML elements
+- Implement proper ARIA attributes where needed
+- Ensure keyboard navigation works properly
+
+## Don't
+- Don't introduce new major dependencies without justification
+- Don't modify the LFX platform integration patterns
+- Don't introduce complex state management for this simple app
+- Don't use inline styles or !important declarations
+- Don't hardcode URLs or configuration values
+- Don't introduce more modern angular patterns beyond 15
+
+## Angular-Specific Best Practices
+- Use Angular CLI for generating new components/services
+- Follow the existing module organization
+- Use Angular's built-in pipes where appropriate
+- Implement proper lifecycle hooks
+- Use trackBy functions for *ngFor when appropriate
+- Follow the existing routing patterns (hash-based routing)
