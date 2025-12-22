@@ -9,6 +9,12 @@ docslink="https://docs.linuxfoundation.org/lfx/easycla/v2-current"
 faqlink="https://docs.linuxfoundation.org/lfx/easycla/v2-current/getting-started/easycla-faqs">
 </lfx-header-v2>
 
+<app-banner
+  [text]="banner.text"
+  [ctaText]="banner.ctaText"
+  [url]="banner.url">
+</app-banner>
+
 <div class="container" style="margin-bottom: 20px;">
   <div class="landing-page-container row">
     <router-outlet></router-outlet>
