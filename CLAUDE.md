@@ -16,7 +16,6 @@ yarn serve:prod:local         # Dev server with prod config
 yarn build                    # Build for dev (runs SSM prefetch, outputs to dist/landing-page)
 yarn build:prod               # Build for prod
 yarn test                     # Unit tests (Karma + ChromeHeadless, non-interactive)
-yarn lint                     # TSLint
 yarn eslint                   # ESLint on src/**/*.ts
 yarn eslint-fix               # ESLint with auto-fix
 ```
