@@ -31,9 +31,10 @@ Environment-specific Angular configs are in `src/environments/` and swapped via 
 - **Single NgModule** (`AppModule`) — no lazy loading, no feature modules
 - **Hash-based routing** (`useHash: true`) — only two routes: `/` (HomeComponent) and `**` (PageNotFoundComponent)
 - **Auth0 integration** — `AuthService` in `core/services/` manages authentication via Auth0 SPA SDK with BehaviorSubject state
-- **LFX platform header/footer** — loaded as web components from CDN URLs defined in `cla-env-config.json`, managed by `LfxHeaderService`
+- **LFX platform header/footer** — header script URL comes from `environment.lfxHeader` (Angular environment file); footer URL comes from `cla-env-config.json`. Both rendered as web components, managed by `LfxHeaderService`
 - **Runtime config** — `cla-env-config.json` is pre-fetched from AWS SSM at build time; consumed via `EnvConfig` in `cla-env-utils.ts`
 - **Components**: `home`, `cla-console-section` (reusable card with `@Input()` configuration), `cla-footer`, `lfx-header`, `page-not-found`
+- **`LandingPageService`** in `src/app/service/` — fetches console card data; used by `ClaConsoleSectionComponent`
 - **CUSTOM_ELEMENTS_SCHEMA** enabled in AppModule for the LFX web component header/footer
 
 ## Conventions
