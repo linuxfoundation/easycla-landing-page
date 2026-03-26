@@ -27,7 +27,6 @@ export class LfxHeaderService {
       return;
     }
     lfHeaderEl.logouturl = window.location.origin;
-    lfHeaderEl.userefreshtoken = 'true';
     lfHeaderEl.beforeLogout = () => {
       this.auth.logout();
     };
