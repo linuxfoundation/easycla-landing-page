@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: MIT
 
 import { Injectable } from '@angular/core';
+import { filter, take } from 'rxjs/operators';
 import { AuthService } from './auth.service';
 
 @Injectable({
@@ -38,10 +39,11 @@ export class LfxHeaderService {
       return;
     }
 
-    this.auth.userProfile$.subscribe((data) => {
-      if (data) {
-        lfHeaderEl.authuser = data;
-      }
+    this.auth.userProfile$.pipe(
+      filter(data => !!data),
+      take(1)
+    ).subscribe((data) => {
+      lfHeaderEl.authuser = data;
     });
   }
 }

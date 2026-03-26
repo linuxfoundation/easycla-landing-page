@@ -129,13 +129,14 @@ export class AuthService {
               }
               return of(null);
             }),
-            catchError(() => of(null))
+            catchError(() => {
+              this.userProfileSubject$.next(null);
+              return of(null);
+            })
           )
           .subscribe(() => {
             this.loading$.next(false);
           });
-        console.log('User not logged in');
-        this.userProfileSubject$.next(null);
         return of(loggedIn);
       })
     );
