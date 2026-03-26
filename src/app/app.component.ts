@@ -11,12 +11,6 @@ import { environment } from 'src/environments/environment';
 export class AppComponent {
   hasExpanded: boolean;
 
-  banner = {
-    text: 'Meet us in Amsterdam for KubeCon + CloudNativeCon Europe 2026 • Mar 23–26 •',
-    ctaText: 'Register now',
-    url: 'https://events.linuxfoundation.org/kubecon-cloudnativecon-europe/register/?utm_source=cla-landing-page&utm_medium=homepage&utm_campaign=18269725-KubeCon-EU-2026&utm_content=hero'
-  };
-
   constructor() {
     this.hasExpanded = true;
     this.mountHeader();
@@ -32,6 +26,3 @@ export class AppComponent {
     document.head.appendChild(script);
   }
 }
-
-
-
