@@ -110,3 +110,6 @@ dist
 # Ignore IDE
 .idea/
 .vscode/
+
+# Playwright MCP output
+.playwright-mcp/
