@@ -11,21 +11,38 @@ import { AuthService } from './auth.service';
 export class LfxHeaderService {
 
   constructor(private auth: AuthService) {
-    this.setUserInLFxHeader();
+  }
+
+  setCallBackUrl() {
+    const lfHeaderEl: any = document.getElementById('lfx-header');
+    if (!lfHeaderEl) {
+      return;
+    }
+    lfHeaderEl.callbackurl = window.location.origin;
+  }
+
+  handleLogout() {
+    const lfHeaderEl: any = document.getElementById('lfx-header');
+    if (!lfHeaderEl) {
+      return;
+    }
+    lfHeaderEl.logouturl = window.location.origin;
+    lfHeaderEl.userefreshtoken = 'true';
+    lfHeaderEl.beforeLogout = () => {
+      this.auth.logout();
+    };
   }
 
   setUserInLFxHeader(): void {
-    setTimeout(() => {
-      const lfHeaderEl: any = document.getElementById('lfx-header');
-      if (!lfHeaderEl) {
-        return;
+    const lfHeaderEl: any = document.getElementById('lfx-header');
+    if (!lfHeaderEl) {
+      return;
+    }
+
+    this.auth.userProfile$.subscribe((data) => {
+      if (data) {
+        lfHeaderEl.authuser = data;
       }
-      this.auth.userProfile$.subscribe((data) => {
-        console.log(data);
-        if (data) {
-          lfHeaderEl.authuser = data;
-        }
-      });
-    }, 2000);
+    });
   }
 }
