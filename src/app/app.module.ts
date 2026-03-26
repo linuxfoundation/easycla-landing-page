@@ -12,7 +12,6 @@ import { LfxHeaderComponent } from './components/lfx-header/lfx-header.component
 import { AuthService } from './core/services/auth.service';
 import { HomeComponent } from './components/home/home.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
-import { BannerComponent } from './components/banner/banner.component';
 import { StorageService } from './core/services/storage.service';
 import { LfxHeaderService } from './core/services/lfx-header.service';
 
@@ -24,7 +23,6 @@ import { LfxHeaderService } from './core/services/lfx-header.service';
     LfxHeaderComponent,
     HomeComponent,
     PageNotFoundComponent,
-    BannerComponent,
   ],
   imports: [
     BrowserModule,
