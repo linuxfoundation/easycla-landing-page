@@ -4,6 +4,8 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
 
+const INTERCOM_API_BASE = 'https://api-iam.intercom.io';
+
 export interface IntercomBootOptions {
   api_base?: string;
   app_id?: string;
@@ -100,7 +102,7 @@ export class IntercomService {
             const { intercom_user_jwt: _jwt, app_id: _appId, api_base: _apiBase, ...bootOptions } = options;
 
             window.Intercom('boot', {
-              api_base: environment.intercomApiBase,
+              api_base: INTERCOM_API_BASE,
               app_id: environment.intercomId,
               ...bootOptions,
             });
@@ -139,32 +141,12 @@ export class IntercomService {
     });
   }
 
-  public update(data?: Partial<IntercomBootOptions>): void {
+  private update(data?: Partial<IntercomBootOptions>): void {
     if (typeof window !== 'undefined' && window.Intercom && this.isBooted) {
       try {
         window.Intercom('update', data || {});
       } catch (error) {
         console.error('IntercomService: Update failed', error);
-      }
-    }
-  }
-
-  public show(): void {
-    if (typeof window !== 'undefined' && window.Intercom && this.isBooted) {
-      try {
-        window.Intercom('show');
-      } catch (error) {
-        console.error('IntercomService: Show failed', error);
-      }
-    }
-  }
-
-  public hide(): void {
-    if (typeof window !== 'undefined' && window.Intercom && this.isBooted) {
-      try {
-        window.Intercom('hide');
-      } catch (error) {
-        console.error('IntercomService: Hide failed', error);
       }
     }
   }
@@ -204,16 +186,6 @@ export class IntercomService {
     this.bootedWithIdentity = false;
   }
 
-  public trackEvent(eventName: string, metadata?: Record<string, any>): void {
-    if (typeof window !== 'undefined' && window.Intercom && this.isBooted) {
-      try {
-        window.Intercom('trackEvent', eventName, metadata);
-      } catch (error) {
-        console.error('IntercomService: Track event failed', error);
-      }
-    }
-  }
-
   public isIntercomBooted(): boolean {
     return this.isBooted;
   }
@@ -228,7 +200,7 @@ export class IntercomService {
 
     // Pre-set app settings (JWT added separately in boot())
     window.intercomSettings = {
-      api_base: environment.intercomApiBase,
+      api_base: INTERCOM_API_BASE,
       app_id: environment.intercomId,
     };
 

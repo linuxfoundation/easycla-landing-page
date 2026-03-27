@@ -31,7 +31,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     // Subscribe to auth state for identified boot / shutdown
     this.auth.userProfile$.subscribe(userProfile => {
       if (userProfile) {
-        if (!this.intercomBootAttempted && environment.intercomId) {
+        if (!this.intercomBootAttempted) {
           const intercomJwt = userProfile[environment.auth0IntercomClaim];
           const userId = userProfile[environment.auth0UsernameClaim];
 
@@ -39,7 +39,6 @@ export class AppComponent implements OnInit, AfterViewInit {
             this.intercomBootAttempted = true;
             this.intercomService
               .boot({
-                api_base: environment.intercomApiBase,
                 app_id: environment.intercomId,
                 intercom_user_jwt: intercomJwt,
                 user_id: userId,
@@ -86,15 +85,10 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   private bootIntercomAnonymous() {
-    if (environment.intercomId) {
-      this.intercomService
-        .boot({
-          app_id: environment.intercomId,
-          api_base: environment.intercomApiBase,
-        })
-        .catch((error: any) => {
-          console.warn('AppComponent: Anonymous Intercom boot failed', error);
-        });
-    }
+    this.intercomService
+      .boot({ app_id: environment.intercomId })
+      .catch((error: any) => {
+        console.warn('AppComponent: Anonymous Intercom boot failed', error);
+      });
   }
 }

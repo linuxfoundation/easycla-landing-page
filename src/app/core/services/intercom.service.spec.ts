@@ -25,7 +25,7 @@ describe('IntercomService', () => {
       const intercomCalls: any[] = [];
 
       let resolved = false;
-      service.boot({ app_id: 'test-id', api_base: 'https://api-iam.intercom.io' })
+      service.boot({ app_id: 'test-id' })
         .then(() => { resolved = true; });
 
       // Simulate script load: replace the stub with a real mock
@@ -43,7 +43,6 @@ describe('IntercomService', () => {
 
       service.boot({
         app_id: 'test-id',
-        api_base: 'https://api-iam.intercom.io',
         user_id: 'user123',
         intercom_user_jwt: 'test-jwt',
       });
