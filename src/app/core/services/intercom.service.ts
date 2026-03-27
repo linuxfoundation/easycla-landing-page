@@ -187,7 +187,6 @@ export class IntercomService {
    * Resets boot state but keeps the script loaded.
    */
   private shutdownForReboot(): void {
-    this.bootRequestId++;
     if (typeof window !== 'undefined' && window.Intercom) {
       try {
         window.Intercom('shutdown');
