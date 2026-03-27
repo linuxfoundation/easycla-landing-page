@@ -57,7 +57,7 @@ export class AppComponent implements OnInit, AfterViewInit {
             });
           }
         }
-      } else if (userProfile == null) {
+      } else if (userProfile === null) {
         // Logout or unauthenticated — shutdown identified session
         if (this.intercomBootAttempted) {
           this.intercomService.shutdown();

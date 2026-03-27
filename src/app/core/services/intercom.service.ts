@@ -96,8 +96,8 @@ export class IntercomService {
           this.isBooted = true;
 
           try {
-            // Strip JWT from boot options — it's already in window.intercomSettings
-            const { intercom_user_jwt: _jwt, ...bootOptions } = options;
+            // Strip JWT, app_id, and api_base from caller options — environment values always win
+            const { intercom_user_jwt: _jwt, app_id: _appId, api_base: _apiBase, ...bootOptions } = options;
 
             window.Intercom('boot', {
               api_base: environment.intercomApiBase,
