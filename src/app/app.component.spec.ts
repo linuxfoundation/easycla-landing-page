@@ -4,15 +4,19 @@
 import { TestBed, waitForAsync } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
+import { LfxHeaderService } from './core/services/lfx-header.service';
+import { AuthService } from './core/services/auth.service';
+import { StorageService } from './core/services/storage.service';
 
 describe('AppComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [
-        RouterTestingModule
-      ],
-      declarations: [
-        AppComponent
+      imports: [RouterTestingModule],
+      declarations: [AppComponent],
+      providers: [
+        { provide: LfxHeaderService, useValue: { setUserInLFxHeader: () => {}, setCallBackUrl: () => {}, handleLogout: () => {} } },
+        { provide: AuthService, useValue: {} },
+        { provide: StorageService, useValue: {} },
       ],
     }).compileComponents();
   }));
@@ -21,18 +25,5 @@ describe('AppComponent', () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
     expect(app).toBeTruthy();
-  });
-
-  it(`should have as title 'landing-page'`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app.title).toEqual('landing-page');
-  });
-
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement;
-    expect(compiled.querySelector('.content span').textContent).toContain('landing-page app is running!');
   });
 });

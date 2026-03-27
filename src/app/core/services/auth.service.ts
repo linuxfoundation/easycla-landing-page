@@ -40,7 +40,8 @@ export class AuthService {
     createAuth0Client({
       domain: this.auth0Options.domain,
       client_id: this.auth0Options.clientId,
-      useRefreshTokens: this.auth0Options.useRefreshTokens
+      useRefreshTokens: this.auth0Options.useRefreshTokens,
+      cacheLocation: 'localstorage',
     })
   ) as Observable<Auth0Client>).pipe(
     shareReplay(1), // Every subscription receives the same shared value
@@ -119,11 +120,23 @@ export class AuthService {
           return this.getUser$();
         }
         this.auth0Client$
-          .pipe(concatMap((client: Auth0Client) => from(client.checkSession())))
-          .subscribe((data) => { });
-          console.log('User not logged in');
-          this.userProfileSubject$.next(null);
-        // If not authenticated, return stream that emits 'false'
+          .pipe(
+            concatMap((client: Auth0Client) => from(client.getTokenSilently())),
+            concatMap(() => this.getUser$()),
+            concatMap(user => {
+              if (user) {
+                return this.isAuthenticated$;
+              }
+              return of(null);
+            }),
+            catchError(() => {
+              this.userProfileSubject$.next(null);
+              return of(null);
+            })
+          )
+          .subscribe(() => {
+            this.loading$.next(false);
+          });
         return of(loggedIn);
       })
     );
