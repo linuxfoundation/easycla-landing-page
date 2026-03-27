@@ -56,12 +56,10 @@ export class AppComponent implements OnInit, AfterViewInit {
             });
           }
         }
-      } else if (userProfile === null) {
+      } else if (!userProfile && this.intercomBootAttempted) {
         // Logout or unauthenticated — shutdown identified session
-        if (this.intercomBootAttempted) {
-          this.intercomService.shutdown();
-          this.intercomBootAttempted = false;
-        }
+        this.intercomService.shutdown();
+        this.intercomBootAttempted = false;
         // Re-boot anonymous so banners remain visible
         this.bootIntercomAnonymous();
       }
