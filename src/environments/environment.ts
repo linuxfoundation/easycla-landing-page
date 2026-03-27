@@ -8,7 +8,10 @@
 export const environment = {
   environment: 'dev',
   lfxHeader: "https://cdn.dev.platform.linuxfoundation.org/lfx-header-v2-no-zone.js",
-  production: false
+  production: false,
+  intercomId: 'mxl90k6y',
+  auth0IntercomClaim: 'http://lfx.dev/claims/intercom',
+  auth0UsernameClaim: 'https://sso.linuxfoundation.org/claims/username',
 };
 /*
  * For easier debugging in development mode, you can import the following file

@@ -4,5 +4,8 @@
 export const environment = {
   environment: 'prod',
   lfxHeader: 'https://cdn.platform.linuxfoundation.org/lfx-header-v2-no-zone.js',
-  production: true
+  production: true,
+  intercomId: 'w29sqomy',
+  auth0IntercomClaim: 'http://lfx.dev/claims/intercom',
+  auth0UsernameClaim: 'https://sso.linuxfoundation.org/claims/username',
 };
