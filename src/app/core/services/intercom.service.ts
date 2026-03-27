@@ -30,6 +30,7 @@ export class IntercomService {
   private isBooted = false;
   private isLoading = false;
   private bootedWithIdentity = false;
+  private bootRequestId = 0;
 
   /**
    * Boot Intercom. Can be called with no user data (anonymous — for banners/popups)
@@ -37,6 +38,7 @@ export class IntercomService {
    * Returns a Promise so the caller can handle failures.
    */
   public boot(options: IntercomBootOptions): Promise<void> {
+    const requestId = ++this.bootRequestId;
     return new Promise((resolve, reject) => {
       if (typeof window === 'undefined') {
         reject(new Error('Window is undefined'));
@@ -76,6 +78,12 @@ export class IntercomService {
       // Poll until script is fully loaded (isLoaded flag, not just window.Intercom — the
       // stub is created immediately but the real script must load for identity verification)
       const checkLoaded = setInterval(() => {
+        if (requestId !== this.bootRequestId) {
+          clearInterval(checkLoaded);
+          clearTimeout(timeoutHandle);
+          resolve();
+          return;
+        }
         if (this.isLoaded && window.Intercom) {
           clearInterval(checkLoaded);
           clearTimeout(timeoutHandle);
@@ -133,6 +141,9 @@ export class IntercomService {
 
       const timeoutHandle = setTimeout(() => {
         clearInterval(checkLoaded);
+        if (requestId !== this.bootRequestId) {
+          return;
+        }
         if (!this.isBooted) {
           this.isLoading = false;
           reject(new Error('Intercom script failed to load — check network, CSP, or ad blockers'));
@@ -152,6 +163,7 @@ export class IntercomService {
   }
 
   public shutdown(): void {
+    this.bootRequestId++;
     if (typeof window !== 'undefined') {
       // Clear JWT first — prevents credential leakage across sessions
       if (window.intercomSettings?.intercom_user_jwt) {
@@ -175,6 +187,7 @@ export class IntercomService {
    * Resets boot state but keeps the script loaded.
    */
   private shutdownForReboot(): void {
+    this.bootRequestId++;
     if (typeof window !== 'undefined' && window.Intercom) {
       try {
         window.Intercom('shutdown');

@@ -6,14 +6,31 @@ import { IntercomService } from './intercom.service';
 
 describe('IntercomService', () => {
   let service: IntercomService;
+  let originalIntercom: any;
+  let originalIntercomSettings: any;
 
   beforeEach(() => {
+    originalIntercom = (window as any).Intercom;
+    originalIntercomSettings = (window as any).intercomSettings;
     TestBed.configureTestingModule({});
     service = TestBed.inject(IntercomService);
 
     // Reset window state between tests
     delete (window as any).Intercom;
     delete (window as any).intercomSettings;
+  });
+
+  afterEach(() => {
+    if (originalIntercom === undefined) {
+      delete (window as any).Intercom;
+    } else {
+      (window as any).Intercom = originalIntercom;
+    }
+    if (originalIntercomSettings === undefined) {
+      delete (window as any).intercomSettings;
+    } else {
+      (window as any).intercomSettings = originalIntercomSettings;
+    }
   });
 
   it('should be created', () => {
@@ -65,6 +82,20 @@ describe('IntercomService', () => {
       tick(10001);
 
       expect(rejected).toBeTrue();
+      expect(service.isIntercomBooted()).toBeFalse();
+    }));
+
+    it('does not boot if shutdown() is called before script loads', fakeAsync(() => {
+      const intercomCalls: any[] = [];
+
+      service.boot({ app_id: 'test-id', user_id: 'user123' });
+      service.shutdown(); // cancels the in-flight boot
+
+      (window as any).Intercom = (...args: any[]) => intercomCalls.push(args);
+      (service as any).isLoaded = true;
+      tick(200);
+
+      expect(intercomCalls.some(([cmd]) => cmd === 'boot')).toBeFalse();
       expect(service.isIntercomBooted()).toBeFalse();
     }));
   });
