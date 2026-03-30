@@ -173,11 +173,11 @@ export class IntercomService {
       if (window.Intercom && this.isBooted) {
         try {
           window.Intercom('shutdown');
-          this.isBooted = false;
-          this.bootedWithIdentity = false;
         } catch (error) {
           console.error('IntercomService: Shutdown failed', error);
         }
+        this.isBooted = false;
+        this.bootedWithIdentity = false;
       }
     }
   }
