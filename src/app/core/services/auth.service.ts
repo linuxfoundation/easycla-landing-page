@@ -247,6 +247,11 @@ export class AuthService {
       returnTo: `${window.location.origin}${searchPart}${fragmentPart}`,
     };
 
+    // Clear local user state before Auth0 redirect so Intercom (and any
+    // other subscriber) can react while the page is still alive.
+    this.userProfileSubject$.next(null);
+    this.loggedIn = false;
+
     this.auth0Client$.subscribe((client: Auth0Client) =>
       client.logout(request)
     );
