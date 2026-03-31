@@ -25,6 +25,11 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
+    // On fresh page load (e.g. after logout redirect), Intercom may retain
+    // its previous authenticated session in cookies/localStorage.  Shut it
+    // down before booting anonymous so the old session is cleared.
+    this.intercomService.shutdown();
+
     // Boot Intercom in anonymous mode so banners/popups show for all visitors
     this.bootIntercomAnonymous();
 
