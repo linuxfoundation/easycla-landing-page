@@ -1944,15 +1944,10 @@
   dependencies:
     "@types/node" "*"
 
-"@types/jasmine@*":
-  version "4.3.1"
-  resolved "https://registry.npmjs.org/@types/jasmine/-/jasmine-4.3.1.tgz"
-  integrity sha512-Vu8l+UGcshYmV1VWwULgnV/2RDbBaO6i2Ptx7nd//oJPIZGhoI1YLST4VKagD2Pq/Bc2/7zvtvhM7F3p4SN7kQ==
-
-"@types/jasmine@~3.6.0":
-  version "3.6.11"
-  resolved "https://registry.npmjs.org/@types/jasmine/-/jasmine-3.6.11.tgz"
-  integrity sha512-S6pvzQDvMZHrkBz2Mcn/8Du7cpr76PlRJBAoHnSDNbulULsH5dp0Gns+WRyNX5LHejz/ljxK4/vIHK/caHt6SQ==
+"@types/jasmine@*", "@types/jasmine@~5.1.12":
+  version "5.1.12"
+  resolved "https://registry.yarnpkg.com/@types/jasmine/-/jasmine-5.1.12.tgz#99718e5d6745655a9bb3201db7beb30fd4bc7630"
+  integrity sha512-1BzPxNsFDLDfj9InVR3IeY0ZVf4o9XV+4mDqoCfyPkbsA7dYyKAPAb2co6wLFlHcvxPlt1wShm7zQdV7uTfLGA==
 
 "@types/jasminewd2@~2.0.3":
   version "2.0.10"
