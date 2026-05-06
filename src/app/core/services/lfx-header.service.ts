@@ -46,4 +46,16 @@ export class LfxHeaderService {
       lfHeaderEl.authuser = data;
     });
   }
+
+  setSupportClickHandler(): void {
+    const lfHeaderEl: any = document.getElementById('lfx-header');
+    if (!lfHeaderEl) {
+      return;
+    }
+    lfHeaderEl.onsupportclick = () => {
+      if (window.Intercom) {
+        window.Intercom('show');
+      }
+    };
+  }
 }
