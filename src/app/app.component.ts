@@ -75,6 +75,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     this.lfxHeaderService.setUserInLFxHeader();
     this.lfxHeaderService.setCallBackUrl();
     this.lfxHeaderService.handleLogout();
+    this.lfxHeaderService.setSupportClickHandler();
   }
 
   onToggled() {
